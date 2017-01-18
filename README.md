@@ -1,0 +1,2 @@
+# GitHazi2
+Számkitalálós
