@@ -11,7 +11,7 @@ namespace GitHazi2
             var random = new Random(DateTime.Now.Millisecond);
             var szam = random.Next(0, 1000);
 
-            var engine = new Engine(null);
+            var engine = new Engine(new Adatellenorzo());
             engine.Start(szam);
         }
 
@@ -49,7 +49,7 @@ namespace GitHazi2
                             }
                             else
                             {
-                                switch (_adatellEnorzo.TalaltE(tipp))
+                                switch (_adatellEnorzo.TalaltE(kitalalandoSzam,tipp))
                                 {
                                     case TippEllenorzesEredmeny.Talalt:
                                         Console.WriteLine("Talált!");
@@ -76,4 +76,38 @@ namespace GitHazi2
             }
         }
         }
+
+    internal class Adatellenorzo : IAdatEllenorzo
+    {
+
+        public bool ErvenyesE(string inputValue, out int tipp)
+        {
+ 
+            if (!int.TryParse(inputValue, out tipp))
+            {
+                Console.WriteLine("Nem szám!");
+                return false;
+            }
+            if (tipp < 0 || tipp > 1000)
+            {
+                Console.WriteLine("Mondom 1 és 1000 között!");
+                return false;
+            }
+            return true;
+        }
+
+        public TippEllenorzesEredmeny TalaltE(int kitalalando, int tipp)
+        {
+            switch (Math.Sign(tipp - kitalalando))
+            {
+                case -1:
+                    return TippEllenorzesEredmeny.Ala;
+                case 1:
+                    return TippEllenorzesEredmeny.Fole;
+                case 0:
+                    return TippEllenorzesEredmeny.Talalt;
+            }
+            return TippEllenorzesEredmeny.Ala;
+        }
+    }
 }
