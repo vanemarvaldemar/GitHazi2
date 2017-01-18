@@ -10,6 +10,6 @@ namespace GitHazi2
     interface IAdatEllenorzo
     {
         bool ErvenyesE (string inputValue, out int tipp);
-        TippEllenorzesEredmeny TalaltE(int tipp);
+        TippEllenorzesEredmeny TalaltE(int kitalalandoSzam, int tipp);
     }
 }
